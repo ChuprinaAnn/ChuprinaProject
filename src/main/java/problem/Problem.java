@@ -13,13 +13,13 @@ public class Problem {
      * текст задачи
      */
     public static final String PROBLEM_TEXT = "ПОСТАНОВКА ЗАДАЧИ:\n" +
-            "Заданы два множества точек в пространстве.\n" +
-            "Требуется построить пересечения и разность этих множеств";
+            "Заданы два множества: множество широких лучей и множество треугольников\n" +
+            "Требуется построить пересечения этих множеств и выбрать пересечение максимальной площади";
 
     /**
      * заголовок окна
      */
-    public static final String PROBLEM_CAPTION = "Итоговый проект ученика 10-7 Иванова Ивана";
+    public static final String PROBLEM_CAPTION = "Итоговый проект ученицы 10-7 класса Чуприной Анны";
 
     /**
      * путь к файлу
@@ -30,14 +30,14 @@ public class Problem {
      * список точек
      */
     private ArrayList<Point> points;
-
+    private ArrayList<Point> lines;
     /**
      * Конструктор класса задачи
      */
     public Problem() {
         points = new ArrayList<>();
+        lines = new ArrayList<>();
     }
-
     /**
      * Добавить точку
      *
@@ -48,6 +48,11 @@ public class Problem {
     public void addPoint(double x, double y, int setVal) {
         Point point = new Point(x, y, setVal);
         points.add(point);
+    }
+    public void addLine(double A, double B, double C)
+        Line line = new Line(a,b,c);
+
+
     }
 
     /**
