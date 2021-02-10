@@ -8,5 +8,5 @@ public class Line {
     double a;
     double b;
     double c;
-    Line ()
+    Line (){};
 }

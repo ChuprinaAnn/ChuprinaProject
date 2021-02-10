@@ -49,11 +49,8 @@ public class Problem {
         Point point = new Point(x, y, setVal);
         points.add(point);
     }
-    public void addLine(double A, double B, double C)
-        Line line = new Line(a,b,c);
 
 
-    }
 
     /**
      * Решить задачу
@@ -136,8 +133,12 @@ public class Problem {
      * @param gl переменная OpenGL для рисования
      */
     public void render(GL2 gl) {
-        for (Point point : points) {
-            point.render(gl);
-        }
+//        Figures.renderPoint(gl, 0.5, 0.1, 1);
+//        Figures.renderLine(gl, 0.1, 0.2, 0.7, 0.9, 5 );
+//        Figures.renderTriangle(gl, 0.33, 0.45, 0.6, 0.77, 0.9, 0.25, true, 4);
+//        Figures.renderTriangle(gl, -0.33, -0.45, -0.6, -0.77, -0.9, -0.25, false, 4);
+       // Figures.renderQuad(gl,-0.55, 0.55, 0.55, 0.55, 0.55, -0.55, -0.55, -0.55, true, 6);
+        Figures.renderQuad(gl,-0.55, 0.55, 0.55, 0.55, 0.55, -0.55, -0.55, -0.55, false, 6);
     }
+
 }
