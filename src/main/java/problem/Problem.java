@@ -138,9 +138,8 @@ public class Problem {
 //        Figures.renderTriangle(gl, 0.33, 0.45, 0.6, 0.77, 0.9, 0.25, true, 4);
 //        Figures.renderTriangle(gl, -0.33, -0.45, -0.6, -0.77, -0.9, -0.25, false, 4);
        // Figures.renderQuad(gl,-0.55, 0.55, 0.55, 0.55, 0.55, -0.55, -0.55, -0.55, true, 6);
-        Figures.renderQuad(gl,-0.55, 0.55, 0.55, 0.55, 0.55, -0.55, -0.55, -0.55, false, 6);
-        Figures.renderCircle(gl, true, 4, 4, 5, new Point(0,0));
-        Figures.renderCircle(gl, true, 4, 4, 5, new Point(0,0));
+        Figures.renderCircle(gl, false, 4, 4, 0.5, new Point(0,0));
+
     }
 
 }

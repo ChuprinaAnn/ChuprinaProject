@@ -90,7 +90,7 @@ public class Figures {
             gl.glPointSize(size);
             gl.glLineWidth(width);
             gl.glBegin(GL_LINE_STRIP);
-            gl.glVertex2d(s.x, s.y);
+            //gl.glVertex2d(s.x, s.y);
             for (int i = 0; i<=100; i++) {
                 double k = i*Math.PI*2/100;
                 gl.glVertex2d(Math.cos(k)*r+s.x, Math.sin(k)*r+s.y);
@@ -102,7 +102,7 @@ public class Figures {
             gl.glPointSize(size);
             gl.glLineWidth(width);
             gl.glBegin(GL_TRIANGLE_FAN);
-            gl.glVertex2d(s.x, s.y);
+            //gl.glVertex2d(s.x, s.y);
             for (int i = 0; i<=100; i++) {
                 double k = i*Math.PI*2/100;
                 gl.glVertex2d(Math.cos(k)*r+s.x, Math.sin(k)*r+s.y);
