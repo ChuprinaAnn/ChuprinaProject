@@ -84,5 +84,30 @@ public class Figures {
             gl.glEnd();
         }
     }
-
+    public static void renderCircle(GL2 gl, boolean filled, int size, int width, double r, Point s) {
+        if (filled) {
+            gl.glColor3d(0.5, 0.5, 1);
+            gl.glPointSize(size);
+            gl.glLineWidth(width);
+            gl.glBegin(GL_LINE_STRIP);
+            gl.glVertex2d(s.x, s.y);
+            for (int i = 0; i<=100; i++) {
+                double k = i*Math.PI*2/100;
+                gl.glVertex2d(Math.cos(k)*r+s.x, Math.sin(k)*r+s.y);
+            }
+            gl.glEnd();
+        }
+        else {
+            gl.glColor3d(0.5, 0.5, 1);
+            gl.glPointSize(size);
+            gl.glLineWidth(width);
+            gl.glBegin(GL_TRIANGLE_FAN);
+            gl.glVertex2d(s.x, s.y);
+            for (int i = 0; i<=100; i++) {
+                double k = i*Math.PI*2/100;
+                gl.glVertex2d(Math.cos(k)*r+s.x, Math.sin(k)*r+s.y);
+            }
+            gl.glEnd();
+        }
+    }
 }
