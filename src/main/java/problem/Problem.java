@@ -1,7 +1,10 @@
 package problem;
 
 import javax.media.opengl.GL2;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,6 +34,7 @@ public class Problem {
      */
     private ArrayList<Point> points;
     private ArrayList<Point> lines;
+
     /**
      * Конструктор класса задачи
      */
@@ -38,6 +42,7 @@ public class Problem {
         points = new ArrayList<>();
         lines = new ArrayList<>();
     }
+
     /**
      * Добавить точку
      *
@@ -49,7 +54,6 @@ public class Problem {
         Point point = new Point(x, y, setVal);
         points.add(point);
     }
-
 
 
     /**
@@ -137,8 +141,8 @@ public class Problem {
 //        Figures.renderLine(gl, 0.1, 0.2, 0.7, 0.9, 5 );
 //        Figures.renderTriangle(gl, 0.33, 0.45, 0.6, 0.77, 0.9, 0.25, true, 4);
 //        Figures.renderTriangle(gl, -0.33, -0.45, -0.6, -0.77, -0.9, -0.25, false, 4);
-       // Figures.renderQuad(gl,-0.55, 0.55, 0.55, 0.55, 0.55, -0.55, -0.55, -0.55, true, 6);
-        Figures.renderCircle(gl, false, 4, 4, 0.5, new Point(0,0));
+        Ray ray = new Ray(new Vector(0.1, 0.1), new Vector(0.5, 0.3));
+        ray.render(gl);
 
     }
 
