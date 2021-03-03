@@ -22,11 +22,11 @@ public class Triangle {
     public void render(GL2 gl) {
         gl.glBegin(GL_TRIANGLES);
         gl.glVertex2d(ax, ay);
-        gl.glColor3d(1, 0, 1);
+        gl.glColor3d(0, 0, 1);
         gl.glVertex2d(bx, by);
-        gl.glColor3d(1, 1, 1);
+        gl.glColor3d(1, 0, 1);
         gl.glVertex2d(cx, cy);
-        gl.glColor3d(0, 1, 1);
+        gl.glColor3d(0, 1, 0);
         gl.glEnd();
 
     }

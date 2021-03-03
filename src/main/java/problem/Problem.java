@@ -145,7 +145,7 @@ public class Problem {
 //        Figures.renderTriangle(gl, -0.33, -0.45, -0.6, -0.77, -0.9, -0.25, false, 4);
         Ray ray = new Ray(new Vector(0.1, 0.1), new Vector(0.5, 0.3));
         ray.render(gl);
-        Triangle t = new Triangle(0.22, 0.46, 0.98, 0.17, 0.39, 0.27);
+        Triangle t = new Triangle(0.22, 0.46, -0.98, -0.17, 0.39, -0.27);
         t.render(gl);
 
     }
