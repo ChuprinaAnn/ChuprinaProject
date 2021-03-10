@@ -17,8 +17,8 @@ public class Problem {
      */
     public static final String PROBLEM_TEXT = "ПОСТАНОВКА ЗАДАЧИ:\n" +
             "Заданы два множества: множество широких лучей " +
-            "и множество треугольников\n" +
-            "Требуется построить пересечения этих множеств " +
+            "и множество \n треугольников. " +
+            "Требуется построить пересечения этих множеств \n" +
             "и выбрать пересечение максимальной площади";
 
     /**
@@ -34,15 +34,17 @@ public class Problem {
     /**
      * список точек
      */
-    private ArrayList<Point> points;
-    private ArrayList<Point> lines;
+    private final ArrayList<Point> points;
+    private final ArrayList<Triangle> triangles;
+    private final ArrayList<Ray> rays;
 
     /**
      * Конструктор класса задачи
      */
     public Problem() {
         points = new ArrayList<>();
-        lines = new ArrayList<>();
+        triangles = new ArrayList<>();
+        rays = new ArrayList<>();
     }
 
     /**
@@ -56,7 +58,6 @@ public class Problem {
         Point point = new Point(x, y, setVal);
         points.add(point);
     }
-
 
     /**
      * Решить задачу
@@ -119,10 +120,22 @@ public class Problem {
      *
      * @param n кол-во точек
      */
-    public void addRandomPoints(int n) {
+    public void addRandomRays(int n) {
         for (int i = 0; i < n; i++) {
-            Point p = Point.getRandomPoint();
-            points.add(p);
+            Ray r = Ray.getRandomRay();
+            rays.add(r);
+        }
+    }
+
+    /**
+     * Добавить заданное число случайных точек
+     *
+     * @param n кол-во точек
+     */
+    public void addRandomTriangles(int n) {
+        for (int i = 0; i < n; i++) {
+            Triangle t = Triangle.getRandomTriangle();
+            triangles.add(t);
         }
     }
 
@@ -131,6 +144,8 @@ public class Problem {
      */
     public void clear() {
         points.clear();
+        triangles.clear();
+        rays.clear();
     }
 
     /**
@@ -139,15 +154,14 @@ public class Problem {
      * @param gl переменная OpenGL для рисования
      */
     public void render(GL2 gl) {
-//        Figures.renderPoint(gl, 0.5, 0.1, 1);
-//        Figures.renderLine(gl, 0.1, 0.2, 0.7, 0.9, 5 );
-//        Figures.renderTriangle(gl, 0.33, 0.45, 0.6, 0.77, 0.9, 0.25, true, 4);
-//        Figures.renderTriangle(gl, -0.33, -0.45, -0.6, -0.77, -0.9, -0.25, false, 4);
-        Ray ray = new Ray(new Vector(0.1, 0.1), new Vector(0.5, 0.3));
-        ray.render(gl);
-        Triangle t = new Triangle(0.22, 0.46, -0.98, -0.17, 0.39, -0.27);
-        t.render(gl);
-
+        gl.glColor3d(0.4, 0.1, 0.3);
+        for (Triangle triangle : triangles) {
+            triangle.render(gl);
+        }
+        gl.glColor3d(0.1, 0.7, 0.3);
+        for (Ray ray : rays) {
+            ray.render(gl);
+        }
     }
 
 }

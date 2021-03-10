@@ -1,41 +1,39 @@
 package problem;
 
 import javax.media.opengl.GL2;
-
-import static javax.media.opengl.GL.GL_LINES;
-import static javax.media.opengl.GL2GL3.GL_QUADS;
+import java.util.Random;
 
 public class Ray {
-  Vector l;
-  Vector r;
-  Vector c;
-  Vector d;
-  Vector a;
-  Vector b;
-  double x;
-  double y;
-  public Ray(Vector a, Vector b) {
-    this.a = a;
-    this.b = b;
-    l= new Vector(a,b);
-    r = l.rotate();
-    c = b.sum(r.norm().multiply(2));
-    d = a.sum(r.norm().multiply(2));
-  }
-  public void render(GL2 gl) {
-    gl.glBegin(GL_QUADS);
+    Vector l;
+    Vector r;
+    Vector c;
+    Vector d;
+    Vector a;
+    Vector b;
+    double x;
+    double y;
 
-    gl.glColor3d(1, 0, 1);
-    gl.glVertex2d(a.x, a.y);
+    public Ray(Vector a, Vector b) {
+        this.a = a;
+        this.b = b;
+        l = new Vector(a, b);
+        r = l.rotate();
+        c = b.sum(r.norm().multiply(2));
+        d = a.sum(r.norm().multiply(2));
+    }
 
-    gl.glColor3d(1, 1, 1);
-    gl.glVertex2d(b.x, b.y);
+    public void render(GL2 gl) {
+        Figures.renderQuad(gl, a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y,false,2);
+    }
 
-    gl.glColor3d(0, 0, 1);
-    gl.glVertex2d(c.x, c.y);
-
-    gl.glColor3d(0, 1, 1);
-    gl.glVertex2d(d.x, d.y);
-    gl.glEnd();
-  }
+    static Ray getRandomRay() {
+        Random r = new Random();
+        double x1 = r.nextDouble() * 2 - 1;
+        double y1 = r.nextDouble() * 2 - 1;
+        double x2 = r.nextDouble() * 2 - 1;
+        double y2 = r.nextDouble() * 2 - 1;
+        Vector v1 = new Vector(x1, y1);
+        Vector v2 = new Vector(x2, y2);
+        return new Ray(v1, v2);
+    }
 }

@@ -31,23 +31,23 @@ public class Figures {
             gl.glPointSize(width);
             gl.glBegin(GL_TRIANGLES);
             gl.glVertex2d(aX, aY);
-            gl.glColor3d(1, 0, 1);
+            //gl.glColor3d(1, 0, 1);
             gl.glVertex2d(bX, bY);
-            gl.glColor3d(1, 1, 1);
+          //  gl.glColor3d(1, 1, 1);
             gl.glVertex2d(cY, cX);
-            gl.glColor3d(0, 1, 1);
+           // gl.glColor3d(0, 1, 1);
             gl.glEnd();
         } else {
             gl.glPointSize(width);
             gl.glBegin(GL_LINE_STRIP);
             gl.glVertex2d(aX, aY);
-            gl.glColor3d(1, 0, 1);
+           // gl.glColor3d(1, 0, 1);
             gl.glVertex2d(bX, bY);
-            gl.glColor3d(1, 1, 1);
+           // gl.glColor3d(1, 1, 1);
             gl.glVertex2d(cY, cX);
-            gl.glColor3d(0, 1, 1);
+          //  gl.glColor3d(0, 1, 1);
             gl.glVertex2d(aX, aY);
-            gl.glColor3d(1, 0, 1);
+          //  gl.glColor3d(1, 0, 1);
             gl.glEnd();
         }
     }
@@ -55,16 +55,16 @@ public class Figures {
         if (filled) {
             gl.glPointSize(width);
             gl.glBegin(GL_QUADS);
-            gl.glColor3d(0, 1, 1);
+          //  gl.glColor3d(0, 1, 1);
             gl.glVertex2d(aX, aY);
 
-            gl.glColor3d(1, 0, 1);
+           // gl.glColor3d(1, 0, 1);
             gl.glVertex2d(bX, bY);
 
-            gl.glColor3d(1, 1, 1);
+          //  gl.glColor3d(1, 1, 1);
             gl.glVertex2d(cX, cY);
 
-            gl.glColor3d(0, 0, 1);
+          //  gl.glColor3d(0, 0, 1);
             gl.glVertex2d(dX, dY);
 
             gl.glEnd();
@@ -72,15 +72,15 @@ public class Figures {
             gl.glPointSize(width);
             gl.glBegin(GL_LINE_STRIP);
             gl.glVertex2d(aX, aY);
-            gl.glColor3d(1, 0, 1);
+          //  gl.glColor3d(1, 0, 1);
             gl.glVertex2d(bX, bY);
-            gl.glColor3d(1, 1, 1);
+         //   gl.glColor3d(1, 1, 1);
             gl.glVertex2d(cX, cY);
-            gl.glColor3d(0, 1, 1);
+         //   gl.glColor3d(0, 1, 1);
             gl.glVertex2d(dX, dY);
-            gl.glColor3d(0, 1 ,0);
+         //   gl.glColor3d(0, 1 ,0);
             gl.glVertex2d(aX, aY);
-            gl.glColor3d(1, 0, 1);
+         //   gl.glColor3d(1, 0, 1);
             gl.glEnd();
         }
     }

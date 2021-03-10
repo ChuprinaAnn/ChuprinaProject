@@ -18,8 +18,8 @@ public class Form extends JFrame {
     private JPanel root;
     private JTextField xPointField;
     private JTextField yPointField;
-    private JButton randomBtn;
-    private JTextField pointCntField;
+    private JButton randomRayBtn;
+    private JTextField rayCntField;
     private JButton loadFromFileBtn;
     private JButton saveToFileBtn;
     private JButton clearBtn;
@@ -28,6 +28,8 @@ public class Form extends JFrame {
     private JButton addPoint;
     private JRadioButton radioButton1;
     private JRadioButton radioButton2;
+    private JTextField triangleCntField;
+    private JButton randomTriangleButton;
     /**
      * таймер
      */
@@ -94,10 +96,16 @@ public class Form extends JFrame {
                 renderer.problem.addPoint(x, y, setVal);
             }
         });
-        randomBtn.addActionListener(new ActionListener() {
+        randomRayBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                renderer.problem.addRandomPoints(Integer.parseInt(pointCntField.getText()));
+                renderer.problem.addRandomRays(Integer.parseInt(rayCntField.getText()));
+            }
+        });
+        randomTriangleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                renderer.problem.addRandomTriangles(Integer.parseInt(triangleCntField.getText()));
             }
         });
         loadFromFileBtn.addActionListener(new ActionListener() {
@@ -140,5 +148,9 @@ public class Form extends JFrame {
      */
     public static void main(String[] args) {
         new Form();
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

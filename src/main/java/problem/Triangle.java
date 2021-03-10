@@ -2,33 +2,35 @@ package problem;
 
 import javax.media.opengl.GL2;
 
+import java.util.Random;
+
 import static javax.media.opengl.GL.GL_TRIANGLES;
 
 public class Triangle {
-    double ax;
-    double ay;
-    double bx;
-    double by;
-    double cx;
-    double cy;
-    public Triangle( double ax, double ay, double bx, double by, double cx, double cy) {
-        this.ax = ax;
-        this.ay = ay;
-        this.bx = bx;
-        this.by = by;
-        this.cx = cx;
-        this.cy = cy;
+    Vector a;
+    Vector b;
+    Vector c;
+    public Triangle(Vector a, Vector b, Vector c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
     }
     public void render(GL2 gl) {
-        gl.glBegin(GL_TRIANGLES);
-        gl.glVertex2d(ax, ay);
-        gl.glColor3d(0, 0, 1);
-        gl.glVertex2d(bx, by);
-        gl.glColor3d(1, 0, 1);
-        gl.glVertex2d(cx, cy);
-        gl.glColor3d(0, 1, 0);
-        gl.glEnd();
+       Figures.renderTriangle(gl,a.x,a.y,b.x,b.y,c.x,c.y,false,2);
 
+    }
+    static Triangle getRandomTriangle() {
+        Random r = new Random();
+        double x1 = r.nextDouble()*2-1;
+        double y1 = r.nextDouble()*2-1;
+        double x2 = r.nextDouble()*2-1;
+        double y2 = r.nextDouble()*2-1;
+        double x3 = r.nextDouble()*2-1;
+        double y3 = r.nextDouble()*2-1;
+        Vector v1 = new Vector(x1, y1);
+        Vector v2 = new Vector (x2,y2);
+        Vector v3 = new Vector (x3, y3);
+        return new Triangle(v1, v2, v3);
     }
 
 }
