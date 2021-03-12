@@ -1,11 +1,13 @@
 package Gui;
 
-import problem.Point;
 import problem.Problem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Класс формы приложения
@@ -16,8 +18,8 @@ public class Form extends JFrame {
      */
     private JPanel GLPlaceholder;
     private JPanel root;
-    private JTextField xPointField;
-    private JTextField yPointField;
+    private JTextField x1TriangleField;
+    private JTextField x2TriangleField;
     private JButton randomRayBtn;
     private JTextField rayCntField;
     private JButton loadFromFileBtn;
@@ -25,11 +27,18 @@ public class Form extends JFrame {
     private JButton clearBtn;
     private JButton solveBtn;
     private JLabel problemText;
-    private JButton addPoint;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
     private JTextField triangleCntField;
     private JButton randomTriangleButton;
+    private JTextField y1TriangleField;
+    private JTextField y2TriangleField;
+    private JTextField x3TriangleField;
+    private JTextField y3TriangleField;
+    private JButton addTriagnlebtn;
+    private JButton addRayBtn;
+    private JTextField x1RayField;
+    private JTextField y1RayField;
+    private JTextField x2RayField;
+    private JTextField y2RayField;
     /**
      * таймер
      */
@@ -83,17 +92,27 @@ public class Form extends JFrame {
     private void initWidgets() {
         // задаём текст полю описания задачи
         problemText.setText("<html>" + Problem.PROBLEM_TEXT.replaceAll("\n", "<br>"));
-        // делаем первое радио выбранным
-        radioButton1.setSelected(true);
-        radioButton2.setSelected(false);
 
-        addPoint.addActionListener(new ActionListener() {
+        addTriagnlebtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double x = Double.parseDouble(xPointField.getText());
-                double y = Double.parseDouble(yPointField.getText());
-                int setVal = radioButton1.isSelected() ? Point.SET_1 : Point.SET_2;
-                renderer.problem.addPoint(x, y, setVal);
+                double x1 = Double.parseDouble(x1TriangleField.getText());
+                double y1 = Double.parseDouble(y1TriangleField.getText());
+                double x2 = Double.parseDouble(x2TriangleField.getText());
+                double y2 = Double.parseDouble(y2TriangleField.getText());
+                double x3 = Double.parseDouble(x3TriangleField.getText());
+                double y3 = Double.parseDouble(y3TriangleField.getText());
+                renderer.problem.addTriangle(x1, y1, x2, y2, x3, y3);
+            }
+        });
+        addRayBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double x1 = Double.parseDouble(x1RayField.getText());
+                double y1 = Double.parseDouble(y1RayField.getText());
+                double x2 = Double.parseDouble(x2RayField.getText());
+                double y2 = Double.parseDouble(y2RayField.getText());
+                renderer.problem.addRay(x1, y1, x2, y2);
             }
         });
         randomRayBtn.addActionListener(new ActionListener() {

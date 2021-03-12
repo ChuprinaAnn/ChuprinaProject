@@ -4,12 +4,14 @@ import javax.media.opengl.GL2;
 import java.util.Random;
 
 public class Ray {
-    Vector l;
-    Vector r;
-    Vector c;
-    Vector d;
     Vector a;
     Vector b;
+    Vector c;
+    Vector d;
+
+    Vector l;
+    Vector r;
+
     double x;
     double y;
 

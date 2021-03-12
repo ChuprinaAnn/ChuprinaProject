@@ -34,7 +34,6 @@ public class Problem {
     /**
      * список точек
      */
-    private final ArrayList<Point> points;
     private final ArrayList<Triangle> triangles;
     private final ArrayList<Ray> rays;
 
@@ -42,7 +41,6 @@ public class Problem {
      * Конструктор класса задачи
      */
     public Problem() {
-        points = new ArrayList<>();
         triangles = new ArrayList<>();
         rays = new ArrayList<>();
     }
@@ -50,13 +48,23 @@ public class Problem {
     /**
      * Добавить точку
      *
+     * @param x координата X точки
+     * @param y координата Y точки
+     */
+    public void addTriangle(double x, double y, double x2, double y2, double x3, double y3) {
+        Triangle triangle = new Triangle(new Vector(x, y), new Vector(x2, y2), new Vector(x3, y3));
+        triangles.add(triangle);
+    }
+
+    /**
+     * Добавить точку
+     *
      * @param x      координата X точки
      * @param y      координата Y точки
-     * @param setVal номер множества
      */
-    public void addPoint(double x, double y, int setVal) {
-        Point point = new Point(x, y, setVal);
-        points.add(point);
+    public void addRay(double x, double y, double x2, double y2) {
+        Ray ray = new Ray(new Vector(x,y),new Vector(x2,y2));
+        rays.add(ray);
     }
 
     /**
@@ -64,16 +72,9 @@ public class Problem {
      */
     public void solve() {
         // перебираем пары точек
-        for (Point p : points) {
-            for (Point p2 : points) {
-                // если точки являются разными
-                if (p != p2) {
-                    // если координаты у них совпадают
-                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
-                        p.isSolution = true;
-                        p2.isSolution = true;
-                    }
-                }
+        for (Triangle p : triangles) {
+            for (Ray r : rays) {
+
             }
         }
     }
@@ -82,37 +83,37 @@ public class Problem {
      * Загрузить задачу из файла
      */
     public void loadFromFile() {
-        points.clear();
-        try {
-            File file = new File(FILE_NAME);
-            Scanner sc = new Scanner(file);
-            // пока в файле есть непрочитанные строки
-            while (sc.hasNextLine()) {
-                double x = sc.nextDouble();
-                double y = sc.nextDouble();
-                int setVal = sc.nextInt();
-                sc.nextLine();
-                Point point = new Point(x, y, setVal);
-                points.add(point);
-            }
-        } catch (Exception ex) {
-            System.out.println("Ошибка чтения из файла: " + ex);
-        }
+        triangles.clear();
+//        try {
+//            File file = new File(FILE_NAME);
+//            Scanner sc = new Scanner(file);
+//            // пока в файле есть непрочитанные строки
+//            while (sc.hasNextLine()) {
+//                double x = sc.nextDouble();
+//                double y = sc.nextDouble();
+//                int setVal = sc.nextInt();
+//                sc.nextLine();
+//                Point point = new Point(x, y, setVal);
+//                triangles.add(point);
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("Ошибка чтения из файла: " + ex);
+//        }
     }
 
     /**
      * Сохранить задачу в файл
      */
     public void saveToFile() {
-        try {
-            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
-            for (Point point : points) {
-                out.printf("%.2f %.2f %d\n", point.x, point.y, point.setNumber);
-            }
-            out.close();
-        } catch (IOException ex) {
-            System.out.println("Ошибка записи в файл: " + ex);
-        }
+//        try {
+//            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
+//            for (Point point : points) {
+//                out.printf("%.2f %.2f %d\n", point.x, point.y, point.setNumber);
+//            }
+//            out.close();
+//        } catch (IOException ex) {
+//            System.out.println("Ошибка записи в файл: " + ex);
+//        }
     }
 
     /**
@@ -143,7 +144,6 @@ public class Problem {
      * Очистить задачу
      */
     public void clear() {
-        points.clear();
         triangles.clear();
         rays.clear();
     }
