@@ -1,5 +1,7 @@
 package problem;
 
+import sun.font.FontRunIterator;
+
 import javax.media.opengl.GL2;
 import java.io.File;
 import java.io.FileWriter;
@@ -73,6 +75,7 @@ public class Problem {
     public void solve() {
         // перебираем пары точек
         for (Triangle p : triangles) {
+        Line
             for (Ray r : rays) {
 
             }
@@ -84,36 +87,58 @@ public class Problem {
      */
     public void loadFromFile() {
         triangles.clear();
-//        try {
-//            File file = new File(FILE_NAME);
-//            Scanner sc = new Scanner(file);
-//            // пока в файле есть непрочитанные строки
-//            while (sc.hasNextLine()) {
-//                double x = sc.nextDouble();
-//                double y = sc.nextDouble();
-//                int setVal = sc.nextInt();
-//                sc.nextLine();
-//                Point point = new Point(x, y, setVal);
-//                triangles.add(point);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Ошибка чтения из файла: " + ex);
-//        }
+        try {
+            File file = new File(FILE_NAME);
+            Scanner sc = new Scanner(file);
+            int r = sc.nextInt();
+            for (int i = 0; i < r; i++) {
+                double x1 = sc.nextDouble();
+                double y1 = sc.nextDouble();
+                Vector v1 = new Vector(x1, y1);
+                double x2 = sc.nextDouble();
+                double y2 = sc.nextDouble();
+                Vector v2 = new Vector (x2, y2);
+                sc.nextLine();
+                Ray ray = new Ray(v1, v2);
+                rays.add(ray);
+            }
+            int t = sc.nextInt();
+            for (int j = 0; j <t ; j++) {
+                double x1 = sc.nextDouble();
+                double y1 = sc.nextDouble();
+                Vector v1 = new Vector(x1, y1);
+                double x2 = sc.nextDouble();
+                double y2 = sc.nextDouble();
+                Vector v2 = new Vector (x2, y2);
+                double x3 = sc.nextDouble();
+                double y3 = sc.nextDouble();
+                Vector v3 = new Vector (x2, y2);
+                sc.nextLine();
+                Triangle triangle = new Triangle(v1, v2, v3);
+                triangles.add(triangle);
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Ошибка чтения из файла: " + ex);
+        }
     }
 
     /**
      * Сохранить задачу в файл
      */
     public void saveToFile() {
-//        try {
-//            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
-//            for (Point point : points) {
-//                out.printf("%.2f %.2f %d\n", point.x, point.y, point.setNumber);
-//            }
-//            out.close();
-//        } catch (IOException ex) {
-//            System.out.println("Ошибка записи в файл: " + ex);
-//        }
+        try {
+            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
+            for (Triangle triangle : triangles) {
+                out.printf("%.2f %.2f %d\n", triangle.a.x, triangle.a.y, triangle.b.x, triangle.b.y, triangle.c.x, triangle.c.y);
+            }
+            for (Ray ray : rays) {
+                    out.printf("%.2f %.2f %d\n", ray.a.x, ray.a.y, ray.b.x, ray.b.y);
+            }
+            out.close();
+        } catch (IOException ex) {
+            System.out.println("Ошибка записи в файл: " + ex);
+        }
     }
 
     /**
