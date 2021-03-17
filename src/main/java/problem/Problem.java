@@ -31,7 +31,7 @@ public class Problem {
     /**
      * путь к файлу
      */
-    private static final String FILE_NAME = "points.txt";
+    private static final String FILE_NAME = "data.txt";
 
     /**
      * список точек
@@ -74,18 +74,19 @@ public class Problem {
      */
     public void solve() {
         // перебираем пары точек
-        for (Triangle p : triangles) {
-        Line
-            for (Ray r : rays) {
-
-            }
-        }
+//        for (Triangle p : triangles) {
+//        Line
+//            for (Ray r : rays) {
+//
+//            }
+//        }
     }
 
     /**
      * Загрузить задачу из файла
      */
     public void loadFromFile() {
+        rays.clear();
         triangles.clear();
         try {
             File file = new File(FILE_NAME);
@@ -112,7 +113,7 @@ public class Problem {
                 Vector v2 = new Vector (x2, y2);
                 double x3 = sc.nextDouble();
                 double y3 = sc.nextDouble();
-                Vector v3 = new Vector (x2, y2);
+                Vector v3 = new Vector (x3, y3);
                 sc.nextLine();
                 Triangle triangle = new Triangle(v1, v2, v3);
                 triangles.add(triangle);
@@ -129,11 +130,13 @@ public class Problem {
     public void saveToFile() {
         try {
             PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
-            for (Triangle triangle : triangles) {
-                out.printf("%.2f %.2f %d\n", triangle.a.x, triangle.a.y, triangle.b.x, triangle.b.y, triangle.c.x, triangle.c.y);
-            }
+            out.println(rays.size());
             for (Ray ray : rays) {
-                    out.printf("%.2f %.2f %d\n", ray.a.x, ray.a.y, ray.b.x, ray.b.y);
+                out.printf("%.2f %.2f %.2f %.2f\n", ray.a.x, ray.a.y, ray.b.x, ray.b.y);
+            }
+            out.println(triangles.size());
+            for (Triangle triangle : triangles) {
+                out.printf("%.2f %.2f %.2f %.2f %.2f %.2f\n", triangle.a.x, triangle.a.y, triangle.b.x, triangle.b.y, triangle.c.x, triangle.c.y);
             }
             out.close();
         } catch (IOException ex) {
