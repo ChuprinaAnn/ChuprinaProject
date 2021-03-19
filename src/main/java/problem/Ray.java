@@ -25,7 +25,7 @@ public class Ray {
     }
 
     public void render(GL2 gl) {
-        Figures.renderQuad(gl, a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y,false,2);
+        Figures.renderQuad(gl, a.x, a.y, b.x, b.y, c.x, c.y, d.x, d.y, false, 2);
     }
 
     static Ray getRandomRay() {
@@ -38,4 +38,9 @@ public class Ray {
         Vector v2 = new Vector(x2, y2);
         return new Ray(v1, v2);
     }
+//    public boolean isInside (Vector v) {
+//        double x = v.x; double y = v.y;
+//        if
+//    }
+//}
 }

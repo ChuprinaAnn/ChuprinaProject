@@ -29,13 +29,13 @@ public class Line {
         B = x2-x1;
         C = x1*y2 - x2*y1;
     }
-    public Point intersection (Line line) {
+    public Vector intersection (Line line) {
         if (isParallel(line)) return null;
         else {
             double a = line.getA(), b = line.getB(), c = line.getC();
             double X = (b * C / B - c) / (a - A * b / B);
             double Y = -(A * X + C) / B;
-            return new Point(X, Y);
+            return new Vector(X, Y);
         }
     }
 }
