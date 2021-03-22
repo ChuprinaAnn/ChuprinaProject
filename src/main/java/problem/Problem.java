@@ -1,7 +1,5 @@
 package problem;
 
-import sun.font.FontRunIterator;
-
 import javax.media.opengl.GL2;
 import java.io.File;
 import java.io.FileWriter;
@@ -73,13 +71,13 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-        // перебираем пары точек
-//        for (Triangle p : triangles) {
-//        Line
-//            for (Ray r : rays) {
-//
-//            }
-//        }
+//         перебираем пары точек
+     for (Triangle p : triangles) {
+
+
+          for (Ray r : rays) {
+            }
+        }
     }
 
     /**

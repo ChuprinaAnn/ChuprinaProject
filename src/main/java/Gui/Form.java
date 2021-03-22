@@ -39,6 +39,7 @@ public class Form extends JFrame {
     private JTextField y1RayField;
     private JTextField x2RayField;
     private JTextField y2RayField;
+    private JLabel X;
     /**
      * таймер
      */
