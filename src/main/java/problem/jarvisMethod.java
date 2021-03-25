@@ -3,9 +3,9 @@ package problem;
 import java.util.ArrayList;
 
 public class jarvisMethod {
-        private ArrayList<Vector> v = new ArrayList<Vector>();
-        private int n;
-        private int h;
+         ArrayList<Vector> v = new ArrayList<Vector>();
+         int n;
+         int h;
 
         public ArrayList <Vector> computeHull(ArrayList<Vector> v)
         {
@@ -16,7 +16,7 @@ public class jarvisMethod {
             return k;
         }
 
-        private void jarvisMethod()
+        public void jarvisMethod()
         {
             int i=indexOfLowestPoint();
             ArrayList<Vector> polygonpoints = new ArrayList<>();
@@ -31,7 +31,7 @@ public class jarvisMethod {
             while (i>0);
         }
 
-        private int indexOfLowestPoint()
+        public int indexOfLowestPoint()
         {
             int i, min=0;
             for (i=1; i<n; i++)
@@ -40,7 +40,7 @@ public class jarvisMethod {
             return min;
         }
 
-        private int indexOfRightmostPointFrom(Vector q)
+        public int indexOfRightmostPointFrom(Vector q)
         {
             int i=0, j;
             for (j=1; j<n; j++)
@@ -49,7 +49,7 @@ public class jarvisMethod {
             return i;
         }
 
-        private void exchange(int i, int j)
+        public void exchange(int i, int j)
         {
             Vector t = v.get(i);
             v.set(i,v.get(j));
