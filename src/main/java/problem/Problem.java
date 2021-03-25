@@ -130,7 +130,7 @@ public class Problem {
             Vector c = polygons.get(i+1);
             Triangle w = new Triangle (a,b,c);
             Figures r = new Figures();
-            renderTriangle(gl, a.x, a.y, b.x, b.y, c.x, c.y, 1, 5);
+            r.renderTriangle(gl, a.x, a.y, b.x, b.y, c.x, c.y, 1, 5);
         }
 
     }
