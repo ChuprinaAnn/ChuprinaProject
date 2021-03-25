@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -71,13 +72,67 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-//         перебираем пары точек
+     ArrayList <Double> Square = new ArrayList<Double>();
+     ArrayList <ArrayList> arrays = new ArrayList<ArrayList>();
      for (Triangle p : triangles) {
-
-
           for (Ray r : rays) {
+              ArrayList<Vector> points = new ArrayList<>();
+          ArrayList<Vector> raypoints = r.raypoints();
+          Polygon k = new Polygon(raypoints);
+          Line t1 = new Line (p.a.x, p.a.y, p.b.x, p.b.y);
+          Line t2 = new Line (p.b.x, p.b.y, p.c.x, p.c.y);
+          Line t3 = new Line (p.c.x, p.c.y, p.a.x, p.a.y);
+          Line r1 = new Line (r.a.x, r.a.y, r.b.x, r.b.y);
+          Line r2 = new Line (r.b.x, r.b.y, r.c.x, r.c.y);
+          Line r3 = new Line (r.c.x, r.c.y, r.d.x, r.d.y);
+          Line r4 = new Line (r.d.x, r.d.y, r.a.x, r.a.y);
+          Line[] lines = new Line [] {t1, t2, t3, r1, r2, r3, r4};
+          for (int i = 0; i < lines.length; i++) {
+              for (int j = 0; j < lines.length ; j++) {
+                      Vector a = lines[j].intersection(lines[i]);
+                      points.add(a);
+              }
+          }
+          for (int i = 0; i < points.size() ; i++) {
+              boolean a = k.isInside(points.get(i));
+              if (a == false) {
+                  points.remove(i);
+              }
+          }
+          jarvisMethod z = new jarvisMethod();
+          ArrayList <Vector> polygonpoints = new ArrayList<>();
+          polygonpoints = z.computeHull(points);
+          Polygon t = new Polygon(polygonpoints);
+          Vector t_t = t.middlepoint(polygonpoints);
+          double S = 0;
+              for (int i = 0; i < polygonpoints.size(); i++) {
+                  Triangle a = new Triangle(t_t, polygonpoints.get(i), polygonpoints.get(i+1));
+                  double s = a.SquareTriangle();
+                  S += s;
+              }
+          Square.add(S);
+          arrays.add(polygonpoints);
+          }
+        }
+        double max = Square.get(0);
+        int numbermax = 0;
+        for (int i = 0; i < Square.size(); i++) {
+            if (Square.get(i)>max) {
+                numbermax = i;
             }
         }
+        ArrayList <Vector> polygons = new ArrayList<>();
+        polygons = arrays.get(numbermax);
+        Polygon polygon = new Polygon(polygons);
+        for (int i = 0; i < polygons.size(); i++) {
+            Vector a = polygon.middlepoint(polygons);
+            Vector b = polygons.get(i);
+            Vector c = polygons.get(i+1);
+            Triangle w = new Triangle (a,b,c);
+            Figures r = new Figures();
+            renderTriangle(gl, a.x, a.y, b.x, b.y, c.x, c.y, 1, 5);
+        }
+
     }
 
     /**

@@ -35,9 +35,26 @@ public class Vector {
     public Vector sum(Vector b) {
         return new Vector(x + b.x, y + b.y);
     }
+    public Vector difference(Vector b) { return new Vector (x-b.x, y-b.y); }
 
+    public boolean isLess(Vector v)
+    {
+        double f=cross(v);
+        return f>0 || f==0 && isFurther(v);
+    }
+    public double cross(Vector v)
+    {
+        return x*v.y-v.x*y;
+    }
+    public boolean isFurther(Vector v)
+    {
+        return mdist()>v.mdist();
+    }
+    public double mdist()   // Manhattan-Distance
+    {
+        return Math.abs(x)+Math.abs(y);
+    }
     public Vector multiply(double b) {
         return new Vector(x * b, y * b);
     }
-
 }

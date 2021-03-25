@@ -1,6 +1,7 @@
 package problem;
 
 import javax.media.opengl.GL2;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Ray {
@@ -38,9 +39,12 @@ public class Ray {
         Vector v2 = new Vector(x2, y2);
         return new Ray(v1, v2);
     }
-//    public boolean isInside (Vector v) {
-//        double x = v.x; double y = v.y;
-//        if
-//    }
-//}
+    public ArrayList<Vector> raypoints() {
+        ArrayList <Vector> a = new ArrayList<>();
+        a.add(l);
+        a.add(r);
+        a.add(c);
+        a.add(d);
+        return a;
+    }
 }
