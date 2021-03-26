@@ -1,5 +1,6 @@
 package problem;
 
+import javax.media.opengl.GL2;
 import java.util.ArrayList;
 
 public class Polygon {
@@ -30,6 +31,17 @@ public class Polygon {
            return true; }
        else
            return false;
+    }
+    public void render (GL2 gl) {
+        Polygon t = new Polygon(polygon_coordinates);
+        for (int i = 0; i < polygon_coordinates.size(); i++) {
+            Vector a = t.middlepoint(polygon_coordinates);
+            Vector b = polygon_coordinates.get(i);
+            Vector c = polygon_coordinates.get(i+1);
+            Triangle w = new Triangle (a,b,c);
+            Figures r = new Figures();
+            r.renderTriangle(gl, a.x, a.y, b.x, b.y, c.x, c.y, true, 5);
+        }
     }
 }
 

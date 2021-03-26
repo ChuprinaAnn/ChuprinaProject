@@ -16,6 +16,7 @@ public class Problem {
     /**
      * текст задачи
      */
+
     public static final String PROBLEM_TEXT = "ПОСТАНОВКА ЗАДАЧИ:\n" +
             "Заданы два множества: множество широких лучей " +
             "и множество \n треугольников. " +
@@ -37,6 +38,7 @@ public class Problem {
      */
     private final ArrayList<Triangle> triangles;
     private final ArrayList<Ray> rays;
+    private ArrayList <Vector> Polygonpoints;
 
     /**
      * Конструктор класса задачи
@@ -44,6 +46,7 @@ public class Problem {
     public Problem() {
         triangles = new ArrayList<>();
         rays = new ArrayList<>();
+        Polygonpoints = new ArrayList<>();
     }
 
     /**
@@ -121,17 +124,8 @@ public class Problem {
                 numbermax = i;
             }
         }
-        ArrayList <Vector> polygons = new ArrayList<>();
-        polygons = arrays.get(numbermax);
-        Polygon polygon = new Polygon(polygons);
-        for (int i = 0; i < polygons.size(); i++) {
-            Vector a = polygon.middlepoint(polygons);
-            Vector b = polygons.get(i);
-            Vector c = polygons.get(i+1);
-            Triangle w = new Triangle (a,b,c);
-            Figures r = new Figures();
-            r.renderTriangle(gl, a.x, a.y, b.x, b.y, c.x, c.y, 1, 5);
-        }
+        Polygonpoints = arrays.get(numbermax);
+
 
     }
 
@@ -243,6 +237,8 @@ public class Problem {
         for (Ray ray : rays) {
             ray.render(gl);
         }
+        Polygon polygon = new Polygon(Polygonpoints);
+        polygon.render(gl);
     }
 
 }
