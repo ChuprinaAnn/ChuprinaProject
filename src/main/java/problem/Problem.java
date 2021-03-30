@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -38,7 +39,7 @@ public class Problem {
      */
     private final ArrayList<Triangle> triangles;
     private final ArrayList<Ray> rays;
-    private ArrayList <Vector> Polygonpoints;
+    private ArrayList<Vector> Polygonpoints;
 
     /**
      * Конструктор класса задачи
@@ -63,11 +64,11 @@ public class Problem {
     /**
      * Добавить точку
      *
-     * @param x      координата X точки
-     * @param y      координата Y точки
+     * @param x координата X точки
+     * @param y координата Y точки
      */
     public void addRay(double x, double y, double x2, double y2) {
-        Ray ray = new Ray(new Vector(x,y),new Vector(x2,y2));
+        Ray ray = new Ray(new Vector(x, y), new Vector(x2, y2));
         rays.add(ray);
     }
 
@@ -75,52 +76,59 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-     ArrayList <Double> Square = new ArrayList<Double>();
-     ArrayList <ArrayList> arrays = new ArrayList<ArrayList>();
-     for (Triangle p : triangles) {
-          for (Ray r : rays) {
-              ArrayList<Vector> points = new ArrayList<>();
-          ArrayList<Vector> raypoints = r.raypoints();
-          Polygon k = new Polygon(raypoints);
-          Line t1 = new Line (p.a.x, p.a.y, p.b.x, p.b.y);
-          Line t2 = new Line (p.b.x, p.b.y, p.c.x, p.c.y);
-          Line t3 = new Line (p.c.x, p.c.y, p.a.x, p.a.y);
-          Line r1 = new Line (r.a.x, r.a.y, r.b.x, r.b.y);
-          Line r2 = new Line (r.b.x, r.b.y, r.c.x, r.c.y);
-          Line r3 = new Line (r.c.x, r.c.y, r.d.x, r.d.y);
-          Line r4 = new Line (r.d.x, r.d.y, r.a.x, r.a.y);
-          Line[] lines = new Line [] {t1, t2, t3, r1, r2, r3, r4};
-          for (int i = 0; i < lines.length; i++) {
-              for (int j = 0; j < lines.length ; j++) {
-                      Vector a = lines[j].intersection(lines[i]);
-                      points.add(a);
-              }
-          }
-          for (int i = 0; i < points.size() ; i++) {
-              boolean a = k.isInside(points.get(i));
-              if (a == false) {
-                  points.remove(i);
-              }
-          }
-          jarvisMethod z = new jarvisMethod();
-          ArrayList <Vector> polygonpoints = new ArrayList<>();
-          polygonpoints = z.computeHull(points);
-          Polygon t = new Polygon(polygonpoints);
-          Vector t_t = t.middlepoint(polygonpoints);
-          double S = 0;
-              for (int i = 0; i < polygonpoints.size(); i++) {
-                  Triangle a = new Triangle(t_t, polygonpoints.get(i), polygonpoints.get(i+1));
-                  double s = a.SquareTriangle();
-                  S += s;
-              }
-          Square.add(S);
-          arrays.add(polygonpoints);
-          }
+        ArrayList<Double> Square = new ArrayList<Double>();
+        ArrayList<ArrayList> arrays = new ArrayList<ArrayList>();
+        for (Triangle p : triangles) {
+            Line t1 = new Line(p.a.x, p.a.y, p.b.x, p.b.y);
+            Line t2 = new Line(p.b.x, p.b.y, p.c.x, p.c.y);
+            Line t3 = new Line(p.c.x, p.c.y, p.a.x, p.a.y);
+            for (Line triangleLine : new Line[]{t1, t2, t3}) {
+                for (Ray r : rays) {
+                    System.out.println("__________");
+                    ArrayList<Vector> points = new ArrayList<>();
+                    ArrayList<Vector> raypoints = r.raypoints();
+                    Polygon k = new Polygon(raypoints);
+                    Line r1 = new Line(r.a.x, r.a.y, r.b.x, r.b.y);
+                    Line r2 = new Line(r.b.x, r.b.y, r.c.x, r.c.y);
+                    Line r3 = new Line(r.c.x, r.c.y, r.d.x, r.d.y);
+                    Line r4 = new Line(r.d.x, r.d.y, r.a.x, r.a.y);
+                    for (Line rectLine : new Line[]{r1, r2, r3, r4}) {
+                        Vector a = triangleLine.intersection(rectLine);
+                        //System.out.println(a);
+                        if (a != null)
+                            points.add(a);
+                    }
+
+                    points.forEach(System.out::println);
+
+                    points.removeIf(point -> !k.isInside(point));
+
+                    if (points.isEmpty())
+                        continue;
+
+
+                    jarvisMethod z = new jarvisMethod();
+                    ArrayList<Vector> polygonpoints = new ArrayList<>();
+                    polygonpoints = z.computeHull(points);
+
+                    Polygon t = new Polygon(polygonpoints);
+                    Vector t_t = t.middlepoint(polygonpoints);
+                    double S = 0;
+                    for (int i = 0; i < polygonpoints.size() - 1; i++) {
+                        Triangle a = new Triangle(t_t, polygonpoints.get(i), polygonpoints.get(i + 1));
+                        double s = a.SquareTriangle();
+                        S += s;
+                    }
+                    Square.add(S);
+                    arrays.add(polygonpoints);
+                }
+            }
         }
         double max = Square.get(0);
+        //System.out.println(Square);
         int numbermax = 0;
         for (int i = 0; i < Square.size(); i++) {
-            if (Square.get(i)>max) {
+            if (Square.get(i) > max) {
                 numbermax = i;
             }
         }
@@ -145,22 +153,22 @@ public class Problem {
                 Vector v1 = new Vector(x1, y1);
                 double x2 = sc.nextDouble();
                 double y2 = sc.nextDouble();
-                Vector v2 = new Vector (x2, y2);
+                Vector v2 = new Vector(x2, y2);
                 sc.nextLine();
                 Ray ray = new Ray(v1, v2);
                 rays.add(ray);
             }
             int t = sc.nextInt();
-            for (int j = 0; j <t ; j++) {
+            for (int j = 0; j < t; j++) {
                 double x1 = sc.nextDouble();
                 double y1 = sc.nextDouble();
                 Vector v1 = new Vector(x1, y1);
                 double x2 = sc.nextDouble();
                 double y2 = sc.nextDouble();
-                Vector v2 = new Vector (x2, y2);
+                Vector v2 = new Vector(x2, y2);
                 double x3 = sc.nextDouble();
                 double y3 = sc.nextDouble();
-                Vector v3 = new Vector (x3, y3);
+                Vector v3 = new Vector(x3, y3);
                 sc.nextLine();
                 Triangle triangle = new Triangle(v1, v2, v3);
                 triangles.add(triangle);

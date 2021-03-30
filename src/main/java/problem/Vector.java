@@ -57,4 +57,12 @@ public class Vector {
     public Vector multiply(double b) {
         return new Vector(x * b, y * b);
     }
+
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

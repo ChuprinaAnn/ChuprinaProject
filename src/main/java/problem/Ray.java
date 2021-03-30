@@ -3,6 +3,11 @@ package problem;
 import javax.media.opengl.GL2;
 import java.util.ArrayList;
 import java.util.Random;
+package problem;
+
+import javax.media.opengl.GL2;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Ray {
     Vector a;
