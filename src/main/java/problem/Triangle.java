@@ -43,7 +43,6 @@ public class Triangle {
         Vector v3 = new Vector(x3, y3);
         return new Triangle(v1, v2, v3);
     }
-
     public double SquareTriangle() {
         return Math.abs(1.0 / 2 * (a.x - c.x) * (b.y - c.y) - 1.0 / 2 * (b.x - c.x) * (a.y - c.y));
     }
