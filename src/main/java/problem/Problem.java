@@ -5,9 +5,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -39,7 +38,9 @@ public class Problem {
      */
     private final ArrayList<Triangle> triangles;
     private final ArrayList<Ray> rays;
-    private ArrayList<Vector> Polygonpoints;
+    private Polygon resultPolygon;
+
+    ArrayList<Vector> points = new ArrayList<>();
 
     /**
      * Конструктор класса задачи
@@ -47,7 +48,7 @@ public class Problem {
     public Problem() {
         triangles = new ArrayList<>();
         rays = new ArrayList<>();
-        Polygonpoints = new ArrayList<>();
+        resultPolygon = null;
     }
 
     /**
@@ -76,65 +77,42 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-        ArrayList<Double> Square = new ArrayList<Double>();
-        ArrayList<ArrayList> arrays = new ArrayList<ArrayList>();
-        for (Triangle p : triangles) {
-            Line t1 = new Line(p.a.x, p.a.y, p.b.x, p.b.y);
-            Line t2 = new Line(p.b.x, p.b.y, p.c.x, p.c.y);
-            Line t3 = new Line(p.c.x, p.c.y, p.a.x, p.a.y);
+        double maxSquare = 0;
+        for (Triangle triangle : triangles) {
+            Line t1 = new Line(triangle.a.x, triangle.a.y, triangle.b.x, triangle.b.y);
+            Line t2 = new Line(triangle.b.x, triangle.b.y, triangle.c.x, triangle.c.y);
+            Line t3 = new Line(triangle.c.x, triangle.c.y, triangle.a.x, triangle.a.y);
             for (Line triangleLine : new Line[]{t1, t2, t3}) {
-                for (Ray r : rays) {
-                    System.out.println("__________");
-                    ArrayList<Vector> points = new ArrayList<>();
-                    ArrayList<Vector> raypoints = r.raypoints();
-                    Polygon k = new Polygon(raypoints);
-                    Line r1 = new Line(r.a.x, r.a.y, r.b.x, r.b.y);
-                    Line r2 = new Line(r.b.x, r.b.y, r.c.x, r.c.y);
-                    Line r3 = new Line(r.c.x, r.c.y, r.d.x, r.d.y);
-                    Line r4 = new Line(r.d.x, r.d.y, r.a.x, r.a.y);
+                for (Ray ray : rays) {
+                    List<Vector> localPoints = new ArrayList<>();
+                    Line r1 = new Line(ray.a.x, ray.a.y, ray.b.x, ray.b.y);
+                    Line r2 = new Line(ray.b.x, ray.b.y, ray.c.x, ray.c.y);
+                    Line r3 = new Line(ray.c.x, ray.c.y, ray.d.x, ray.d.y);
+                    Line r4 = new Line(ray.d.x, ray.d.y, ray.a.x, ray.a.y);
                     for (Line rectLine : new Line[]{r1, r2, r3, r4}) {
                         Vector a = triangleLine.intersection(rectLine);
-                        //System.out.println(a);
                         if (a != null)
-                            points.add(a);
+                            localPoints.add(a);
                     }
+                    localPoints.addAll(triangle.getTrianglePoints());
+                    localPoints.addAll(ray.getRaypoints());
+                    localPoints.removeIf(point -> !new Polygon(triangle.getTrianglePoints()).isInside(point) ||
+                            !new Polygon(ray.getRaypoints()).isInside(point));
 
-                    points.forEach(System.out::println);
-
-                    points.removeIf(point -> !k.isInside(point));
-
-                    if (points.isEmpty())
+                    if (localPoints.isEmpty())
                         continue;
 
+                    Polygon t = new Polygon(localPoints);
+                    double localSquare = t.getSquare();
 
-                    jarvisMethod z = new jarvisMethod();
-                    ArrayList<Vector> polygonpoints = new ArrayList<>();
-                    polygonpoints = z.computeHull(points);
-
-                    Polygon t = new Polygon(polygonpoints);
-                    Vector t_t = t.middlepoint(polygonpoints);
-                    double S = 0;
-                    for (int i = 0; i < polygonpoints.size() - 1; i++) {
-                        Triangle a = new Triangle(t_t, polygonpoints.get(i), polygonpoints.get(i + 1));
-                        double s = a.SquareTriangle();
-                        S += s;
+                    if (localSquare > maxSquare) {
+                        maxSquare = localSquare;
+                        resultPolygon = t;
                     }
-                    Square.add(S);
-                    arrays.add(polygonpoints);
+                    points.addAll(localPoints);
                 }
             }
         }
-        double max = Square.get(0);
-        //System.out.println(Square);
-        int numbermax = 0;
-        for (int i = 0; i < Square.size(); i++) {
-            if (Square.get(i) > max) {
-                numbermax = i;
-            }
-        }
-        Polygonpoints = arrays.get(numbermax);
-
-
     }
 
     /**
@@ -229,6 +207,8 @@ public class Problem {
     public void clear() {
         triangles.clear();
         rays.clear();
+        points.clear();
+        resultPolygon = null;
     }
 
     /**
@@ -237,6 +217,7 @@ public class Problem {
      * @param gl переменная OpenGL для рисования
      */
     public void render(GL2 gl) {
+        gl.glLineWidth(1);
         gl.glColor3d(0.4, 0.1, 0.3);
         for (Triangle triangle : triangles) {
             triangle.render(gl);
@@ -245,8 +226,18 @@ public class Problem {
         for (Ray ray : rays) {
             ray.render(gl);
         }
-        Polygon polygon = new Polygon(Polygonpoints);
-        polygon.render(gl);
+
+        if (resultPolygon != null) {
+            gl.glColor3d(0, 0, 1);
+            gl.glLineWidth(4);
+            resultPolygon.render(gl);
+        }
+
+//        gl.glPointSize(5);
+//        gl.glColor3d(0.1, 0.4, 0.8);
+//        for (Vector point : points) {
+//            Figures.renderPoint(gl, point.x, point.y, 5);
+//        }
     }
 
 }

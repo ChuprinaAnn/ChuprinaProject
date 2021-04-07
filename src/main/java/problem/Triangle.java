@@ -2,9 +2,9 @@ package problem;
 
 import javax.media.opengl.GL2;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-
-import static javax.media.opengl.GL.GL_TRIANGLES;
 
 public class Triangle {
     Vector a;
@@ -20,6 +20,14 @@ public class Triangle {
     public void render(GL2 gl) {
         Figures.renderTriangle(gl, a.x, a.y, b.x, b.y, c.x, c.y, false, 2);
 
+    }
+
+    public List<Vector> getTrianglePoints() {
+        List<Vector> lst = new ArrayList<Vector>();
+        lst.add(a);
+        lst.add(b);
+        lst.add(c);
+        return lst;
     }
 
     static Triangle getRandomTriangle() {

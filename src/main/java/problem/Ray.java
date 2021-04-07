@@ -44,12 +44,12 @@ public class Ray {
         Vector v2 = new Vector(x2, y2);
         return new Ray(v1, v2);
     }
-    public ArrayList<Vector> raypoints() {
-        ArrayList <Vector> a = new ArrayList<>();
-        a.add(l);
-        a.add(r);
-        a.add(c);
-        a.add(d);
-        return a;
+    public ArrayList<Vector> getRaypoints() {
+        ArrayList <Vector> lst = new ArrayList<>();
+        lst.add(a);
+        lst.add(b);
+        lst.add(c);
+        lst.add(d);
+        return lst;
     }
 }
