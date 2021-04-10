@@ -52,13 +52,11 @@ public class Polygon {
         gl.glEnd();
     }
 
-    // Define Infinite (Using INT_MAX
-    // caused overflow problems)
+    // Определим бесконечность (используем INT_MAX, чтобы не вызвать проблемы с переполнением ячеек)
     static int INF = 10000;
 
-    // Given three colinear points p, q, r,
-    // the function checks if point q lies
-    // on line segment 'pr'
+    // Исследуем три коллинеарных вектора p, q, r,
+    // метод проверяет лежит ли точка q на отрезке "pr"
     static boolean onSegment(Vector p, Vector q, Vector r) {
         if (q.x <= Math.max(p.x, r.x) &&
                 q.x >= Math.min(p.x, r.x) &&
@@ -69,11 +67,11 @@ public class Polygon {
         return false;
     }
 
-    // To find orientation of ordered triplet (p, q, r).
-    // The function returns following values
-    // 0 --> p, q and r are colinear
-    // 1 --> Clockwise
-    // 2 --> Counterclockwise
+    // Цель - найти взаимное расположение упорядоченного триплета (p,q,r)
+    // Функция возвращает полученное значение
+    // 0 --> p, q и r коллинеарны
+    // 1 --> По часовой стрелке
+    // 2 --> Против часовой стрелки
     static int orientation(Vector p, Vector q, Vector r) {
         double val = (q.y - p.y) * (r.x - q.x)
                 - (q.x - p.x) * (r.y - q.y);

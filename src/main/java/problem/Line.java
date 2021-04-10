@@ -22,7 +22,7 @@ public class Line {
 
     public boolean isParallel(Line line) {
         return Math.abs(A * line.getB() - (line.getA() * B)) < 0.001;
-    }
+    } //
 
     Line(double x, double y, double z) {
         A = x;
@@ -36,7 +36,7 @@ public class Line {
         C = x1 * y2 - x2 * y1;
         pointA = new Vector(x1, y1);
         pointB = new Vector(x2, y2);
-    }
+    } //
 
     public Vector intersection(Line t) {
         if (isParallel(t))
@@ -45,6 +45,6 @@ public class Line {
         double b1 = (-A / B) * a1 - C / B;
         //String S=String.format("(%.2f, %.2f",a1,b1);
         return new Vector(a1, b1);
-    }
+    } //
 
 }
