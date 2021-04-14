@@ -218,7 +218,7 @@ public class Problem {
      */
     public void render(GL2 gl) {
         gl.glLineWidth(1);
-        gl.glColor3d(0.4, 0.1, 0.3);
+        gl.glColor3d(0.4, 0.1, 0.8);
         for (Triangle triangle : triangles) {
             triangle.render(gl);
         }
@@ -228,7 +228,7 @@ public class Problem {
         }
 
         if (resultPolygon != null) {
-            gl.glColor3d(0, 0, 1);
+            gl.glColor3d(1, 0,0 );
             gl.glLineWidth(4);
             resultPolygon.render(gl);
         }

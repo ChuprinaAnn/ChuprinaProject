@@ -144,13 +144,12 @@ public class Polygon {
         do {
             int next = (i + 1) % polygon_coordinates.size();
 
-            // Check if the line segment from 'p' to
-            // 'extreme' intersects with the line
-            // segment from 'polygon[i]' to 'polygon[next]'
+            // Проверим, пересекается ли отрезок от "p" до
+            // 'extreme' с отрезком 'polygon[i]' до 'polygon[next]'
             if (doIntersect(polygon_coordinates.get(i), polygon_coordinates.get(next), p, extreme)) {
-                // If the point 'p' is colinear with line
-                // segment 'i-next', then check if it lies
-                // on segment. If it lies, return true, otherwise false
+                // Если точка 'p' коллинеарна отрезку
+                // 'i-next', проверить, лежит ли она на отрезке.
+                // Если это ложь, вернуть true, иначе - false.
                 if (orientation(polygon_coordinates.get(i), p, polygon_coordinates.get(next)) == 0) {
                     return onSegment(polygon_coordinates.get(i), p, polygon_coordinates.get(next));
                 }
@@ -160,8 +159,8 @@ public class Polygon {
             i = next;
         } while (i != 0);
 
-        // Return true if count is odd, false otherwise
-        return (count % 2 == 1); // Same as (count%2 == 1)
+        // Вернуть true если счётчик нечётный, в противном случае - false
+        return (count % 2 == 1); // То же самое (count%2 == 1)
     }
 }
 
