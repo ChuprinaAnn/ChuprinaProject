@@ -41,7 +41,19 @@ public class Polygon {
 
 
     public void render(GL2 gl) {
+        gl.glColor3d(1, 0,0 );
         gl.glBegin(GL.GL_LINE_LOOP);
+        for (Vector b : polygon_coordinates) {
+            gl.glVertex2d(b.x, b.y);
+//            //Vector a = middlepoint(polygon_coordinates);
+//            Vector c = polygon_coordinates.get(i+1);
+//            Triangle w = new Triangle (a,b,c);
+//            Figures.renderTriangle(gl, a.x, a.y, b.x, b.y, c.x, c.y, false, 5);
+        }
+        gl.glEnd();
+        gl.glColor3d(1, 1,1 );
+        gl.glPointSize(5);
+        gl.glBegin(GL.GL_POINTS);
         for (Vector b : polygon_coordinates) {
             gl.glVertex2d(b.x, b.y);
 //            //Vector a = middlepoint(polygon_coordinates);

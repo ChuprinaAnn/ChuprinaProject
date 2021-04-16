@@ -82,9 +82,10 @@ public class Problem {
             Line t1 = new Line(triangle.a.x, triangle.a.y, triangle.b.x, triangle.b.y);
             Line t2 = new Line(triangle.b.x, triangle.b.y, triangle.c.x, triangle.c.y);
             Line t3 = new Line(triangle.c.x, triangle.c.y, triangle.a.x, triangle.a.y);
-            for (Line triangleLine : new Line[]{t1, t2, t3}) {
-                for (Ray ray : rays) {
-                    List<Vector> localPoints = new ArrayList<>();
+
+            for (Ray ray : rays) {
+                List<Vector> localPoints = new ArrayList<>();
+                for (Line triangleLine : new Line[]{t1, t2, t3}) {
                     Line r1 = new Line(ray.a.x, ray.a.y, ray.b.x, ray.b.y);
                     Line r2 = new Line(ray.b.x, ray.b.y, ray.c.x, ray.c.y);
                     Line r3 = new Line(ray.c.x, ray.c.y, ray.d.x, ray.d.y);
@@ -94,23 +95,25 @@ public class Problem {
                         if (a != null)
                             localPoints.add(a);
                     }
-                    localPoints.addAll(triangle.getTrianglePoints());
-                    localPoints.addAll(ray.getRaypoints());
-                    localPoints.removeIf(point -> !new Polygon(triangle.getTrianglePoints()).isInside(point) ||
-                            !new Polygon(ray.getRaypoints()).isInside(point));
 
-                    if (localPoints.isEmpty())
-                        continue;
-
-                    Polygon t = new Polygon(localPoints);
-                    double localSquare = t.getSquare();
-
-                    if (localSquare > maxSquare) {
-                        maxSquare = localSquare;
-                        resultPolygon = t;
-                    }
-                    points.addAll(localPoints);
                 }
+                localPoints.addAll(triangle.getTrianglePoints());
+                localPoints.addAll(ray.getRaypoints());
+
+                localPoints.removeIf(point -> !new Polygon(triangle.getTrianglePoints()).isInside(point) ||
+                        !new Polygon(ray.getRaypoints()).isInside(point));
+
+                if (localPoints.isEmpty())
+                    continue;
+
+                Polygon t = new Polygon(localPoints);
+                double localSquare = t.getSquare();
+
+                if (localSquare > maxSquare) {
+                    maxSquare = localSquare;
+                    resultPolygon = t;
+                }
+                points.addAll(localPoints);
             }
         }
     }
@@ -228,7 +231,6 @@ public class Problem {
         }
 
         if (resultPolygon != null) {
-            gl.glColor3d(1, 0,0 );
             gl.glLineWidth(4);
             resultPolygon.render(gl);
         }
